@@ -1,0 +1,31 @@
+<h2>Student Profile</h2>
+
+<p><strong>Name:</strong> {{ name }}</p>
+
+<p><strong>Department:</strong> {{ department }}</p>
+
+<p><strong>Year:</strong> {{ year }}</p>
+
+<hr>
+
+<h3>Enrolled Courses</h3>
+
+@if (enrollmentService.getEnrolledCourses().length > 0) {
+
+  <ul>
+
+    @for (course of enrollmentService.getEnrolledCourses(); track course.id) {
+
+      <li>
+        {{ course.name }} ({{ course.code }})
+      </li>
+
+    }
+
+  </ul>
+
+} @else {
+
+  <p>No courses enrolled.</p>
+
+}

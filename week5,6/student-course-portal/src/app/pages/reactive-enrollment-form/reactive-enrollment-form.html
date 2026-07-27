@@ -1,0 +1,122 @@
+<form [formGroup]="enrollForm" (ngSubmit)="onSubmit()">
+
+  <h2>Reactive Enrollment Form</h2>
+
+  <label>Student Name</label>
+  <br>
+  <input
+    type="text"
+    formControlName="studentName">
+
+  @if (enrollForm.get('studentName')?.touched &&
+       enrollForm.get('studentName')?.invalid) {
+
+    <div style="color:red">
+
+      @if (enrollForm.get('studentName')?.errors?.['required']) {
+        Student Name is required.
+      }
+
+      @if (enrollForm.get('studentName')?.errors?.['minlength']) {
+        Minimum 3 characters required.
+      }
+
+    </div>
+
+  }
+
+  <br><br>
+
+  <label>Email</label>
+  <br>
+
+  <input
+    type="email"
+    formControlName="studentEmail">
+
+  @if (enrollForm.get('studentEmail')?.pending) {
+    <div>Checking email...</div>
+  }
+
+  @if (enrollForm.get('studentEmail')?.errors?.['emailTaken']) {
+    <div style="color:red">
+      Email already exists.
+    </div>
+  }
+
+  <br><br>
+
+  <label>Course ID</label>
+  <br>
+
+  <input
+    type="text"
+    formControlName="courseId">
+
+  @if (enrollForm.get('courseId')?.errors?.['noCourseCode']) {
+    <div style="color:red">
+      Course IDs starting with XX are not allowed.
+    </div>
+  }
+
+  <br><br>
+
+  <label>Preferred Semester</label>
+
+  <select formControlName="preferredSemester">
+    <option value="Odd">Odd</option>
+    <option value="Even">Even</option>
+  </select>
+
+  <br><br>
+
+  <label>
+    <input
+      type="checkbox"
+      formControlName="agreeToTerms">
+
+    I agree to Terms & Conditions
+  </label>
+
+  <br><br>
+
+  <h3>Additional Courses</h3>
+
+  <button
+    type="button"
+    (click)="addCourse()">
+    Add Course
+  </button>
+
+  <br><br>
+
+  <div formArrayName="additionalCourses">
+
+    @for (course of additionalCourses.controls; track $index) {
+
+      <div>
+
+        <input
+          [formControl]="getCourseControl($index)">
+
+        <button
+          type="button"
+          (click)="removeCourse($index)">
+          Remove
+        </button>
+
+      </div>
+
+      <br>
+
+    }
+
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="enrollForm.invalid">
+    Submit
+  </button>
+
+</form>

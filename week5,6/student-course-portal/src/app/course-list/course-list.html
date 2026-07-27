@@ -1,0 +1,59 @@
+<h2>Courses</h2>
+
+<input
+  type="text"
+  placeholder="Search Course"
+  [(ngModel)]="searchTerm">
+
+<button
+  style="margin-left:10px"
+  (click)="searchCourses()">
+  Search
+</button>
+
+<br><br>
+
+@if (isLoading) {
+
+  <p>Loading courses...</p>
+
+} @else {
+
+  @if (errorMessage) {
+
+    <p style="color:red;">
+      {{ errorMessage }}
+    </p>
+
+  } @else {
+
+    @if (courses.length > 0) {
+
+      @for (course of courses; track course.id) {
+
+        <app-course-card
+          [course]="course"
+          (enrollRequested)="onEnroll($event)">
+        </app-course-card>
+
+      }
+
+    } @else {
+
+      <p>No courses available.</p>
+
+    }
+
+  }
+
+}
+
+@if (selectedCourseId) {
+
+  <br>
+
+  <p>
+    Selected Course ID: {{ selectedCourseId }}
+  </p>
+
+}

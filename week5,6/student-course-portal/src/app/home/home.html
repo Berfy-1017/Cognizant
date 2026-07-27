@@ -1,0 +1,47 @@
+<h1>{{ portalName }}</h1>
+
+<button
+    [disabled]="!isPortalActive"
+    (click)="onEnrollClick()">
+    Enroll Now
+</button>
+
+<p>{{ message }}</p>
+
+<br>
+
+<input
+    type="text"
+    placeholder="Search Course"
+    [(ngModel)]="searchTerm">
+
+<p>
+    Searching for: {{ searchTerm }}
+</p>
+
+<p>
+    Available Courses: {{ availableCourses }}
+</p>
+
+<hr>
+
+<app-course-list></app-course-list>
+
+<hr>
+
+<app-course-summary-widget></app-course-summary-widget>
+
+<hr>
+
+<app-student-profile></app-student-profile>
+
+<hr>
+<hr>
+
+<app-notification></app-notification>
+
+<hr>
+
+<a routerLink="/enroll">
+    Go to Enrollment Form
+</a>

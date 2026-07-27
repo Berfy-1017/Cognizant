@@ -1,0 +1,56 @@
+<div (click)="viewCourse()" style="cursor:pointer;">
+
+  <h3>{{ course.name }}</h3>
+
+  <p>Code: {{ course.code }}</p>
+
+  <p>Credits: {{ course.credits }}</p>
+
+  @if (course.gradeStatus === 'passed') {
+
+    <span style="color: green;">
+      ✅ Passed
+    </span>
+
+  } @else if (course.gradeStatus === 'failed') {
+
+    <span style="color: red;">
+      ❌ Failed
+    </span>
+
+  } @else {
+
+    <span style="color: gray;">
+      ⏳ Pending
+    </span>
+
+  }
+
+</div>
+
+<br>
+
+<button
+  (click)="toggleEnrollment(); $event.stopPropagation()">
+
+  @if (enrollmentService.isEnrolled(course.id)) {
+
+    Unenroll
+
+  } @else {
+
+    Enroll
+
+  }
+
+</button>
+
+<button
+  style="margin-left:10px;"
+  (click)="viewCourse(); $event.stopPropagation()">
+
+  Show Details
+
+</button>
+
+<hr>
